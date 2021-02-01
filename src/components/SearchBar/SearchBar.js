@@ -19,6 +19,7 @@ class SearchBar extends React.Component {
 
         this.handleTermChange = this.handleTermChange.bind(this);
         this.handleLocationChange = this.handleLocationChange.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
     }
     //return CSS class for a sorting option
     getSortByClass(sortByOption){
@@ -41,6 +42,11 @@ class SearchBar extends React.Component {
         this.setState({ location: event.target.value});
     }
 
+    //handle the Let's Go button being clicked 
+    handleSearch(event){
+        this.props.searchYelp(this.state.term, this.state.location, this.state.sortBy);
+        event.preventDefault(); //prevents the default action of clicking a link from triggering at the end of the method
+    }
     //dynamically create the list items needed to display the sort options
     renderSortByOptions(){
         return Object.keys(this.sortByOptions).map(sortByOption => {
@@ -62,7 +68,7 @@ class SearchBar extends React.Component {
                     <input placeholder="Where?" onChange={this.handleLocationChange} />
                 </div>
                 <div className="SearchBar-submit">
-                    <a>Let's Go</a>
+                    <a onClick={this.handleSearch}>Let's Go</a>
                 </div>
             </div>
         );
